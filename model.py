@@ -1,10 +1,11 @@
-
 from dataclasses import dataclass
 from datetime import date
 from typing import List, Optional
 
 
-@dataclass(frozen=True) # frozen=True -> object cannot be modified. 즉, 불변 객체를 만든다.
+# sqlalchemy 에러를 해결하기 위해서 unsafe_hash를 사용한다.
+# https://github.com/cosmicpython/code/issues/17
+@dataclass(unsafe_hash=True) # frozen=True -> object cannot be modified. 즉, 불변 객체를 만든다.
 class OrderLine:
     orderid: str
     sku: str
