@@ -19,7 +19,7 @@
 - [X] 1. Domain Modeling
 - [X] 2. Repository Pattern
 - [X] 3. A Brief Interlude: On Coupling and Abstractions
-- [ ] 4. Our First Use Case: Flask API and Service Layer
+- [X] 4. Our First Use Case: Flask API and Service Layer
 - [ ] 5. TDD in High Gear and Low Gear
 - [ ] 6. Unit of Work Pattern
 - [ ] 7. Aggregates and Consistency Boundaries
