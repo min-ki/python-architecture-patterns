@@ -18,7 +18,7 @@
 ### Part 1: Building an Architecture to Support Domain Modeling
 - [X] 1. Domain Modeling
 - [X] 2. Repository Pattern
-- [ ] 3. A Brief Interlude: On Coupling and Abstractions
+- [X] 3. A Brief Interlude: On Coupling and Abstractions
 - [ ] 4. Our First Use Case: Flask API and Service Layer
 - [ ] 5. TDD in High Gear and Low Gear
 - [ ] 6. Unit of Work Pattern
