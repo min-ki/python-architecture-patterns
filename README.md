@@ -21,7 +21,7 @@
 - [x] 3. A Brief Interlude: On Coupling and Abstractions
 - [x] 4. Our First Use Case: Flask API and Service Layer
 - [x] 5. TDD in High Gear and Low Gear
-- [ ] 6. Unit of Work Pattern
+- [x] 6. Unit of Work Pattern
 - [ ] 7. Aggregates and Consistency Boundaries
 
 ### Part 2: Event-Driven Architecture
