@@ -1,13 +1,18 @@
+import pytest
 from sqlalchemy import text
 
-import domain.model as model
+from allocation.domain import model
 
+
+@pytest.fixture
 def test_orderline_mapper_can_load_lines(session):
     session.execute(
-        text('INSERT INTO order_lines (orderid, sku, qty) VALUES '
-        '("order1", "RED-CHAIR", 12),'
-        '("order1", "RED-TABLE", 13),'
-        '("order2", "BLUE-LIPSTICK", 14)')
+        text(
+            "INSERT INTO order_lines (orderid, sku, qty) VALUES "
+            '("order1", "RED-CHAIR", 12),'
+            '("order1", "RED-TABLE", 13),'
+            '("order2", "BLUE-LIPSTICK", 14)'
+        )
     )
 
     expected = [
@@ -18,6 +23,8 @@ def test_orderline_mapper_can_load_lines(session):
 
     assert session.query(model.OrderLine).all() == expected
 
+
+@pytest.fixture
 def test_orderline_mapper_can_save_lines(session):
     new_line = model.OrderLine("order1", "DECORATIVE-WIDGET", 12)
     session.add(new_line)

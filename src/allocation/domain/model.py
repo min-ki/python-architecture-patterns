@@ -5,7 +5,7 @@ from typing import List, Optional
 
 # sqlalchemy 에러를 해결하기 위해서 unsafe_hash를 사용한다.
 # https://github.com/cosmicpython/code/issues/17
-@dataclass(unsafe_hash=True) # frozen=True -> object cannot be modified. 즉, 불변 객체를 만든다.
+@dataclass(unsafe_hash=True)  # frozen=True -> object cannot be modified. 즉, 불변 객체를 만든다.
 class OrderLine:
     orderid: str
     sku: str
@@ -13,15 +13,12 @@ class OrderLine:
 
 
 class Batch:
-    def __init__(
-        self, ref: str, sku: str, qty: int, eta: Optional[date]
-    ):
+    def __init__(self, ref: str, sku: str, qty: int, eta: Optional[date]):
         self.reference = ref
         self.sku = sku
         self.eta = eta
         self._purchased_quantity = qty
-        self._allocations = set() # type: set[OrderLine]
-
+        self._allocations = set()  # type: set[OrderLine]
 
     def __eq__(self, other):
         if not isinstance(other, Batch):
@@ -36,9 +33,11 @@ class Batch:
         # eta가 없는 창고 재고를 먼저 사용해야한다.
         if self.eta is None:
             return False
-        if self.eta is None:
+        if other.eta is None:
             return True
-        return self.eta > other.eta # ex) 2023-05-29 > 2023-05-30 : 배송이 먼저 완료되는 것을 먼저 사용한다.
+        return (
+            self.eta > other.eta
+        )  # ex) 2023-05-29 > 2023-05-30 : 배송이 먼저 완료되는 것을 먼저 사용한다.
 
     def allocate(self, line: OrderLine):
         if self.can_allocate(line):
@@ -59,8 +58,10 @@ class Batch:
     def can_allocate(self, line: OrderLine) -> bool:
         return self.sku == line.sku and self.available_quantity >= line.qty
 
+
 class OutOfStock(Exception):
     pass
+
 
 def allocate(line: OrderLine, batches: List[Batch]) -> str:
     try:
