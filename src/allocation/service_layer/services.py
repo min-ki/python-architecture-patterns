@@ -5,6 +5,8 @@ from allocation.domain import model
 from allocation.domain.model import OrderLine
 from allocation.service_layer import unit_of_work
 
+from . import unit_of_work
+
 
 class InvalidSku(Exception):
     pass
