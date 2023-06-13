@@ -1,6 +1,4 @@
-from datetime import date
-from typing import Optional
-from allocation.adapters import email
+from allocation.adapters import email, redis_eventpublisher
 
 from allocation.domain import commands, events, model
 from allocation.domain.model import OrderLine
@@ -38,7 +36,7 @@ def allocate(cmd: commands.Allocate, uow: unit_of_work.AbstractUnitOfWork) -> st
             raise InvalidSku(f"Invalid sku {line.sku}")
         batchref = product.allocate(line)
         uow.commit()
-    return batchref
+        return batchref
 
 
 def change_batch_quantity(
@@ -59,3 +57,10 @@ def send_out_of_stock_notification(
         "stock@made.com",
         f"Out of stock for {event.sku}",
     )
+
+
+def publish_allocated_event(
+    event: events.Allocated,
+    uow: unit_of_work.AbstractUnitOfWork,
+):
+    redis_eventpublisher.publish("line_allocated", event)

@@ -2,6 +2,7 @@ import abc
 from typing import Set
 from allocation.adapters import orm
 from allocation.domain import model
+from sqlalchemy.orm import Session
 
 
 class AbstractRepository(abc.ABC):
@@ -40,7 +41,7 @@ class AbstractRepository(abc.ABC):
 class SqlAlchemyRepository(AbstractRepository):
     def __init__(self, session):
         super().__init__()
-        self.session = session
+        self.session: Session = session
 
     def _add(self, product):
         self.session.add(product)
@@ -52,7 +53,7 @@ class SqlAlchemyRepository(AbstractRepository):
         return (
             self.session.query(model.Product)
             .join(model.Batch)
-            .filter_by(
+            .filter(
                 orm.batches.c.reference == batchref
             )  # orm.batches.c에서 c는 readonly column collection
             .first()
