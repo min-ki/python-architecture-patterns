@@ -1,20 +1,20 @@
 """pytest fixture"""
-from pathlib import Path
 import shutil
 import subprocess
 import time
+from pathlib import Path
 
 import pytest
 import redis
 import requests
-from requests.exceptions import ConnectionError
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, clear_mappers
-from sqlalchemy.exc import OperationalError
+from sqlalchemy.orm import clear_mappers, sessionmaker
 from tenacity import retry, stop_after_delay
 
-from allocation.adapters.orm import metadata, start_mappers
 from allocation import config
+from allocation.adapters.orm import metadata, start_mappers
+
+pytest.register_assert_rewrite("tests.e2e.api_client")
 
 
 @pytest.fixture
@@ -25,15 +25,15 @@ def in_memory_db():
 
 
 @pytest.fixture
-def session_factory(in_memory_db):
+def sqlite_session_factory(in_memory_db):
     start_mappers()
     yield sessionmaker(bind=in_memory_db)
     clear_mappers()
 
 
 @pytest.fixture
-def session(in_memory_db):
-    return session_factory()
+def sqlite_session(sqlite_session_factory):
+    return sqlite_session_factory()
 
 
 @retry(stop=stop_after_delay(10))

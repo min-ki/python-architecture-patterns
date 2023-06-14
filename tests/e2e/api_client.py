@@ -16,5 +16,10 @@ def post_to_allocate(orderid, sku, qty, expect_success=True):
         f"{url}/allocate", json={"orderid": orderid, "sku": sku, "qty": qty}
     )
     if expect_success:
-        assert r.status_code == 201
+        assert r.status_code == 202  # CQRS 적용으로 인한 201 -> 202로 변경
     return r
+
+
+def get_allocation(orderid):
+    url = config.get_api_url()
+    return requests.get(f"{url}/allocations/{orderid}")
