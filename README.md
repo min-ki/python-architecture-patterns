@@ -30,5 +30,5 @@
 - [x] 9. Going to Town on the Message Bus
 - [x] 10. Commands and Command Handler
 - [x] 11. Event-Driven Architecture: Using Events to Integrate Microservices
-- [ ] 12. Command-Query Responsibility Segregation (CQRS)
+- [x] 12. Command-Query Responsibility Segregation (CQRS)
 - [ ] 13. Dependency Injection (and Bootstrapping)
