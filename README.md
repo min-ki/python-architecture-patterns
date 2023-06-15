@@ -1,5 +1,9 @@
 # python-architecture-patterns
 
+파이썬으로 살펴보는 아키텍처 패턴을 읽고 실습한 레포지토리
+
+실습 내용은 [cosmicpython](https://www.cosmicpython.com/)에서 확인하실 수 있습니다.
+
 ## 가상환경 구성
 
 1. `python -m venv .venv && source .venv/bin/activate`
@@ -12,7 +16,7 @@
 - pytest --tb=short 에서 tb는 traceback을 의미한다. 여기서 사용한 short은 짧은 traceback 포맷을 사용하겠다는 의미이다.
 - entr: https://github.com/eradman/entr
 
-## 진행상황
+## 목차
 
 ### Part 1: Building an Architecture to Support Domain Modeling
 
