@@ -24,9 +24,9 @@ class MessageBus:
         while self.queue:
             message = self.queue.pop(0)
             if isinstance(message, events.Event):
-                self.handle_event(message, events.Event)
+                self.handle_event(message)
             elif isinstance(message, commands.Command):
-                self.handle_command(message, commands.Command)
+                self.handle_command(message)
             else:
                 raise Exception(f"{message} was not an Event or Command")
 

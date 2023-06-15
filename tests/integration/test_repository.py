@@ -2,7 +2,7 @@ import pytest
 from allocation.adapters import repository
 from allocation.domain import model
 
-pytestmark = pytest.amrk.usefixtures("mappers")
+pytestmark = pytest.mark.usefixtures("mappers")
 
 
 def test_get_by_batchref(sqlite_session_factory):

@@ -40,10 +40,10 @@ class FakeUnitOfWork(unit_of_work.AbstractUnitOfWork):
 
 class FakeNotifications(notifications.AbstractNotifications):
     def __init__(self):
-        self.send = defaultdict(list)
+        self.sent = defaultdict(list)
 
     def send(self, destination, message):
-        self.send[destination].append(message)
+        self.sent[destination].append(message)
 
 
 def bootstrap_test_app():
@@ -101,7 +101,7 @@ class TestAllocate:
         bus.handle(commands.CreateBatch("b1", "POPULAR-CURTAINS", 9, None))
         bus.handle(commands.Allocate("o1", "POPULAR-CURTAINS", 10))
 
-        assert fake_notifis.send["secreata77@gmail.com"] == [
+        assert fake_notifis.sent["secreata77@gmail.com"] == [
             f"Out of stock for POPULAR-CURTAINS"
         ]
 

@@ -67,7 +67,7 @@ def send_out_of_stock_notification(
     notifications: notifications.AbstractNotifications,
 ):
     notifications.send(
-        "secreata77@gamil.com",
+        "secreata77@gmail.com",
         f"Out of stock for {event.sku}",
     )
 
