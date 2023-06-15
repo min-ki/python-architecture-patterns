@@ -31,4 +31,4 @@
 - [x] 10. Commands and Command Handler
 - [x] 11. Event-Driven Architecture: Using Events to Integrate Microservices
 - [x] 12. Command-Query Responsibility Segregation (CQRS)
-- [ ] 13. Dependency Injection (and Bootstrapping)
+- [x] 13. Dependency Injection (and Bootstrapping)
