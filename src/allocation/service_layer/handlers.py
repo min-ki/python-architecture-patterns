@@ -1,10 +1,11 @@
 from dataclasses import asdict
-from sqlalchemy import text
-from allocation.adapters import email, redis_eventpublisher
+from typing import Callable, Dict, List, Type
 
+from allocation.adapters import notifications
 from allocation.domain import commands, events, model
 from allocation.domain.model import OrderLine
 from allocation.service_layer import unit_of_work
+from sqlalchemy import text
 
 from . import unit_of_work
 
@@ -63,19 +64,19 @@ def change_batch_quantity(
 
 def send_out_of_stock_notification(
     event: events.OutOfStock,
-    uow: unit_of_work.AbstractUnitOfWork,
+    notifications: notifications.AbstractNotifications,
 ):
-    email.send(
-        "stock@made.com",
+    notifications.send(
+        "secreata77@gamil.com",
         f"Out of stock for {event.sku}",
     )
 
 
 def publish_allocated_event(
     event: events.Allocated,
-    uow: unit_of_work.AbstractUnitOfWork,
+    publish: Callable,
 ):
-    redis_eventpublisher.publish("line_allocated", event)
+    publish("line_allocated", event)
 
 
 def add_allocation_to_read_model(
@@ -106,3 +107,16 @@ def remove_allocation_from_read_model(
             dict(orderid=event.orderid, sku=event.sku),
         )
         uow.commit()
+
+
+EVENT_HANDLERS = {
+    events.Allocated: [publish_allocated_event, add_allocation_to_read_model],
+    events.Deallocated: [remove_allocation_from_read_model, reallocate],
+    events.OutOfStock: [send_out_of_stock_notification],
+}  # type: Dict[Type[events.Event], List[Callable]]
+
+COMMAND_HANDLERS = {
+    commands.Allocate: allocate,
+    commands.CreateBatch: add_batch,
+    commands.ChangeBatchQuantity: change_batch_quantity,
+}  # type: Dict[Type[commands.Command], Callable]
