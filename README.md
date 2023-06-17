@@ -20,6 +20,8 @@
 
 - `docker-compose up -d`
 - mailhog: 이메일 전송 테스트 도구
+- postgres: 데이터베이스
+- redis: 메시지 브로커
 
 ## 목차
 
