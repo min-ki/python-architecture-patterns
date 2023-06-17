@@ -16,6 +16,11 @@
 - pytest --tb=short 에서 tb는 traceback을 의미한다. 여기서 사용한 short은 짧은 traceback 포맷을 사용하겠다는 의미이다.
 - entr: https://github.com/eradman/entr
 
+## docker-compose 구성
+
+- `docker-compose up -d`
+- mailhog: 이메일 전송 테스트 도구
+
 ## 목차
 
 ### Part 1: Building an Architecture to Support Domain Modeling
